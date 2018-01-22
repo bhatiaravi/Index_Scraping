@@ -24,13 +24,14 @@ def run_scrap_bse():
         code = str(code)
         try:
             # For 52 week data
+            #import ipdb; ipdb.set_trace()
             page = get_page(BASE_URL, code)
             html = bs.BeautifulSoup(page.content)
             high_52week = float(get_val(html, 'hdnHigh52'))
             low_52week = float(get_val(html, 'hdnLOW52'))
             # For last price
             page = get_page(BASE_URL_2, code)
-            last_price = float(page.content.split(',')[-1])
+            last_price = float(page.content.split(',')[-2])
             # For company name
             page = get_page(BASE_URL_3, code)
             company_name = page.content.split(',')[-1]

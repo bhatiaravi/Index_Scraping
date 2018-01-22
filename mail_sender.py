@@ -12,8 +12,10 @@ def SendMail(subject="NSE BSE Alerts", body=None, other_recipients=None, table=N
     recipients = private.receiver
     if isinstance(other_recipients, list):
         recipients = recipients + other_recipients
-
-    toaddrs = ", ".join(recipients)
+    if isinstance(recipients, str):
+        toaddrs = recipients
+    else:
+        toaddrs = ", ".join(recipients)
 
     msg = MIMEMultipart('alternative')
 

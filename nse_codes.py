@@ -70,6 +70,7 @@ NSE_CODES_LIST = [
 'HSIL',
 'HUDCO',
 'IBULHSGFIN',
+'EVEREADY',
 'ICICIBANK',
 'ICICIPRULI',
 'IDEA',
@@ -190,4 +191,63 @@ NSE_CODES_LIST = [
 'ONGC',
 'OIL',
 'IGL',
+'ATULAUTO',
+'ATUL',
+'TVSMOTOR',
+'GATI',
+'DEEPAKFERT',
+'CHAMBLFERT',
+'MANGCHEFER',
+'MOTHERSUMI',# Auto components
+'MINDAIND', # Auto components
+'LUMAXTECH', # Auto components
+'DYNAMATECH', # Auto components
+'FEDERALBNK',
+'IGARASHI',
+'MOLDTKPAC',
+'KSBPUMPS',
+'JBCHEPHARM',
+'UFO',
+'TRIVENI',
+'SCHAEFFLER',
+'SKFINDIA',
+'TTKPRESTIG',
+'VETO',
+'CROMPTON',
+'VGUARD',
+'POKARNA',
+'TATAELXSI',
+'RADICO', # Breweries
+'GMBREW', # Breweries
+'IFBAGRO', # Breweries
+'MCDOWELL-N', # Breweries
+'UBL', # Breweries
+'ORIENTBELL', # Ceramics
+'NITCO', # Ceramics
+'MURUDCERA', # Ceramics
+'MADHAV', # Marbles and Ceramics
+'GRANULES', # Pharma
+'INDTERRAIN', # Fashion Clothing
+'MONTECARLO', # Fashion Clothing
+'LINDEINDIA',
+'WELCORP',
+'WELENT',
+'TATAMTRDVR',
+'TATAMOTORS',
+'ABFRL',
+'TEAMLEASE',
+'SIS',
+'CAPLIPOINT',
+'GARWALLROP',
+'SPAL', # Textile
+'SUTLEJTEX', # Textile
+'BASML', #Textile
+'JINDWORLD', #Textile
+'SRIPIPES', #Pipes
+'NIITTECH',
+]
+
+NSE_SME_CODES = [
+'WORTH',
+'EIFFL', #Euro India foods, SME
 ]
