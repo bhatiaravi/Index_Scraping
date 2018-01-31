@@ -26,15 +26,15 @@ def cond_check(last_price, low_52week, high_52week):
     low_factor = 1.0 + PERCENT_FROM_LOW/100.0
     high_factor = 1.0 - PERCENT_FROM_HIGH/100.0
     low_from_high = 1.0 - LOW_FROM_HIGH/100.0
-    if (low_52week*low_factor > last_price) and \
+    if (low_52week*1.1 > last_price):
+        # Critical cases
+        low_percent = (last_price - low_52week)*100.0/low_52week
+        return RECO_LIST['Critical'].format(str(round(low_percent)))
+    elif (low_52week*low_factor > last_price) and \
         (high_52week*high_factor > last_price):
         # Stocks to watch
         low_percent = (last_price - low_52week)*100.0/low_52week
         return RECO_LIST['Near Low'].format(str(round(low_percent, 2)))
-    elif (low_52week*1.1 > last_price):
-        # Critical cases
-        low_percent = (last_price - low_52week)*100.0/low_52week
-        return RECO_LIST['Critical'].format(str(round(low_percent)))
     elif (high_52week * low_from_high) > last_price:
         dip_percent = (high_52week - last_price)*100.0/high_52week
         return RECO_LIST['Big Dip'].format(str(round(dip_percent)))
