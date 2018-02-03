@@ -1,7 +1,7 @@
 import nse_price_scrap
 import bse_price_scrap
 import pandas as pd
-from common import PERCENT_FROM_LOW, PERCENT_FROM_HIGH
+from common import PERCENT_FROM_LOW, PERCENT_FROM_HIGH, get_pe_details
 from mail_sender import SendMail
 import os
 
@@ -38,7 +38,13 @@ try:
     outcome_df['tmp'] = (outcome_df['LastPrice'] - outcome_df['52week L'])/outcome_df['LastPrice']
     # Sort based on nearness to low price
     outcome_df = outcome_df.sort_values(['tmp'])
-    del outcome_df['tmp']
+    outcome_df['Change (%)'] = outcome_df['Change']
+    del outcome_df['tmp'], outcome_df['Change']
+    try:
+        df_pe = get_pe_details()
+        outcome_df['PE'] = outcome_df['Code'].apply(lambda x: df_pe[df_pe.index == x]['PE'].values[0] if x in df_pe.index else 0.0)
+    except Exception, e:
+        SendMail(subject=repr(e))
     SendMail(subject=sub, table=outcome_df.to_html().replace('&lt;','<').replace('&gt;','>'))
 except Exception, e:
     SendMail(subject=repr(e))

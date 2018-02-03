@@ -13,7 +13,6 @@ def clean(info):
 def run_scrap_nse():
     # for NSE MAIN
     BASE_URL = 'https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/GetQuote.jsp?symbol={0}&illiquid=0&smeFlag=0&itpFlag=0'
-    # TODO: NSE SME
     for code in NSE_CODES_LIST:
         page = get_page(BASE_URL, code)
         html = bs.BeautifulSoup(page.content)
@@ -27,11 +26,14 @@ def run_scrap_nse():
             high_52week = float(useful_info['high52'].replace(',',''))
             price_change = float(useful_info['pChange'].replace(',',''))
             reco = cond_check(last_price, low_52week, high_52week)
+            # import ipdb; ipdb.set_trace()
             if reco is not None:
                 # Stock qualifies for being watched
-                outcome_df.loc[outcome_df.shape[0]] = [company_name, last_price, high_52week, low_52week, code, reco]
+                outcome_df.loc[outcome_df.shape[0]] = [company_name, last_price, high_52week, low_52week, code, price_change, reco]
             time.sleep(SLEEP)
         except Exception, e:
             print repr(e)
             logging.error("Error in NSE: " + repr(e) + " for code " + code)
+    # TODO: NSE SME
+    BASE_URL = 'https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/GetQuote.jsp?symbol={0}&illiquid=0&smeFlag=0&itpFlag=0'
     return outcome_df

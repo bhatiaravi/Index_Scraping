@@ -22,6 +22,7 @@ BASE_URL_3 = 'http://www.bseindia.com/SiteCache/1D/stkCompanyHeader.aspx?Type=BR
 def run_scrap_bse():
     for code in BSE_CODES_LIST:
         code = str(code)
+        change = 0.0
         try:
             # For 52 week data
             #import ipdb; ipdb.set_trace()
@@ -29,16 +30,19 @@ def run_scrap_bse():
             html = bs.BeautifulSoup(page.content)
             high_52week = float(get_val(html, 'hdnHigh52'))
             low_52week = float(get_val(html, 'hdnLOW52'))
+            # import ipdb; ipdb.set_trace()
             # For last price
             page = get_page(BASE_URL_2, code)
             last_price = float(page.content.split(',')[-2])
+            prev_close = float(page.content.split(',')[0].split('#')[-1])
+            change = round((last_price - prev_close)*100.0/prev_close,2)
             # For company name
             page = get_page(BASE_URL_3, code)
             company_name = page.content.split(',')[-1]
             reco = cond_check(last_price, low_52week, high_52week)
             if reco is not None:
                 # Stock qualifies for being watched
-                outcome_df.loc[outcome_df.shape[0]] = [company_name, last_price, high_52week, low_52week, code, reco]
+                outcome_df.loc[outcome_df.shape[0]] = [company_name, last_price, high_52week, low_52week, code, change, reco]
         except Exception, e:
             print repr(e)
             logging.error("Error in BSE: " + repr(e) + " for code " + code)

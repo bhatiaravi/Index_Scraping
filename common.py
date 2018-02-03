@@ -1,11 +1,11 @@
 import pandas as pd
-import requests
+import requests, json
 
 SLEEP = 1.0 # Can also use 0.2 to test
 PERCENT_FROM_LOW = 20
 PERCENT_FROM_HIGH = 15
 LOW_FROM_HIGH = 18
-COLUMNS = ['Company', 'LastPrice', '52week H', '52week L', 'Code','Reco']
+COLUMNS = ['Company', 'LastPrice', '52week H', '52week L', 'Code','Change','Reco']
 
 
 import logging
@@ -13,8 +13,8 @@ logging.basicConfig(filename='scrap.log',level=logging.WARNING)
 
 RECO_LIST = {
     'Near Low': '{0}% from Low', 
-    'Critical': 'Critical - {0}% from Low',
-    'Big Dip': 'Big Dip - {0}% from High', 
+    'Critical': '{0}% from Low',
+    'Big Dip': '{0}% from High', 
 }
 
 def get_page(BASE_URL, code):
@@ -40,7 +40,7 @@ def cond_check(last_price, low_52week, high_52week):
         return RECO_LIST['Big Dip'].format(str(round(dip_percent)))
     return None
 
-def pe_details():
+def get_pe_details():
     PE_DF_COLS = ['Company', 'Sector', 'PE', 'Sector_PE']
     PE_DETAILS_URL = 'https://www.nseindia.com/homepage/peDetails.json'
     pe_detail = requests.get(PE_DETAILS_URL).content
@@ -51,6 +51,7 @@ def pe_details():
         sector_pe = float(pe_detail[comp]['sectorPE'].strip().replace('"',''))
         pe_array.append([comp, pe_detail[comp]['sector'], pe, sector_pe])
     df_pe = pd.DataFrame(pe_array, columns=PE_DF_COLS)
+    df_pe.index = df_pe['Company']
     # Alert based on pe
-    df_pe_alert = df_pe[(df_pe.PE < df_pe.Sector_PE) & (df_pe.PE > 0.1)]
-    return df_pe, df_pe_alert
+    #df_pe_alert = df_pe[(df_pe.PE < df_pe.Sector_PE) & (df_pe.PE > 0.1)]
+    return df_pe
