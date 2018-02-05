@@ -247,11 +247,24 @@ NSE_CODES_LIST = [
 'VOLTAMP',
 'SKIPPER',
 'BOSCHLTD',
-'JISLJALEQS',
+'JISLJALEQS', #Jain irrigation
+'NCC', # Private construction Nagarjuna const
+'UPL',
+'KNRCON', # Construction
+'BHAGERIA', # Dyes and pigments
+'EVERESTIND',
+'BHARATFORG', # Defence play
+'BEL', # Defence play
+'GICRE', # GIC Re insurance
+'CASTROLIND',
+'CUB',
+'INDTERRAIN', # Indian terrain Fashion
+'VAKRANGEE',
 ]
 
 NSE_SME_CODES = [
 'WORTH',
 'EIFFL', #Euro India foods, SME
 'ICEMAKE',
+'AISL', #ANI Integrated
 ]

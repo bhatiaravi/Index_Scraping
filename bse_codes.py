@@ -12,4 +12,6 @@ BSE_CODES_LIST = [
 539018, # BEEKAY
 500655, # Garware pol
 500298, # National Perox
+500214, # ION Exchange
+506528, # Keltech energy (Explosives)
 ]

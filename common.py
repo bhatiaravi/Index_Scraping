@@ -1,7 +1,7 @@
 import pandas as pd
 import requests, json
 
-SLEEP = 1.0 # Can also use 0.2 to test
+SLEEP = 0.2 # Can also use 0.2 to test
 PERCENT_FROM_LOW = 20
 PERCENT_FROM_HIGH = 15
 LOW_FROM_HIGH = 18
